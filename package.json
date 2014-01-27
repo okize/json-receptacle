@@ -4,6 +4,9 @@
   "version": "0.0.1",
   "description": "deployable express app that can receive, store and display arbitrary json data",
   "main": "index.js",
+  "engines": {
+    "node": "0.10.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
