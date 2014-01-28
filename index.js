@@ -9,7 +9,8 @@ var filename = '';
 var data = '';
 
 app.configure(function () {
-  // app.use(express.json());
+  app.use(express.urlencoded());
+  app.use(express.json());
   app.use('/', express.static(__dirname + '/public'));
   app.use('/data', express.static(saveDir));
   app.use('/data', express.directory(saveDir));
@@ -21,22 +22,12 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
 
-  req.on('data', function (data) {
-    data = data;
-  });
+  filename = moment().format('YYYY_MM_DD-HH_mm_ss') + '.json';
+  data = JSON.stringify(req.body, null, 2);
 
-  req.on('end', function () {
-
-    filename = moment().format('YYYY_MM_DD-HH_mm_ss') + '.json';
-
-    fs.writeFile(path.resolve(saveDir, filename), data, function (err) {
-      if (err) {
-        return err;
-      }
-      res.send(JSON.stringify({response: filename + ' saved'}));
-      res.end();
-    });
-
+  fs.writeFile(path.resolve(saveDir, filename), data, function (err) {
+    if (err) throw err;
+    res.send(JSON.stringify({res: filename + ' saved'}));
   });
 
 });
