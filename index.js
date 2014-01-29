@@ -5,6 +5,7 @@ var express = require('express');
 var app = express();
 var port = process.env.PORT || 8000;
 var saveDir = path.resolve(__dirname, 'public', 'data');
+var mkdirp = require('mkdirp');
 var filename = '';
 var data = '';
 
@@ -22,12 +23,16 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
 
-  filename = req.query.filename || moment().format('YYYY_MM_DD-HH_mm_ss') + '.json';
-  data = JSON.stringify(req.body, null, 2);
+  mkdirp(saveDir, function(err) {
 
-  fs.writeFile(path.resolve(saveDir, filename), data, function (err) {
-    if (err) throw err;
-    res.send(JSON.stringify({res: filename + ' saved'}));
+    filename = req.query.filename || moment().format('YYYY_MM_DD-HH_mm_ss') + '.json';
+    data = JSON.stringify(req.body, null, 2);
+
+    fs.writeFile(path.resolve(saveDir, filename), data, function (err) {
+      if (err) throw err;
+      res.send(JSON.stringify({res: filename + ' saved'}));
+    });
+
   });
 
 });
