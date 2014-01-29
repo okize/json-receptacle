@@ -22,7 +22,7 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
 
-  filename = moment().format('YYYY_MM_DD-HH_mm_ss') + '.json';
+  filename = req.query.filename || moment().format('YYYY_MM_DD-HH_mm_ss') + '.json';
   data = JSON.stringify(req.body, null, 2);
 
   fs.writeFile(path.resolve(saveDir, filename), data, function (err) {
