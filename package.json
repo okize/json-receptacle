@@ -2,20 +2,25 @@
   "name": "json-receptacle",
   "private": true,
   "version": "0.0.1",
-  "description": "deployable express app that can receive, store and display arbitrary json data",
+  "description": "Express app that can receive, store and display arbitrary json data.",
   "main": "index.js",
   "engines": {
-    "node": "0.10.x"
+    "node": "0.12"
   },
   "scripts": {
+    "start": "node index",
+    "start-dev": "./node_modules/.bin/nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "express": "3.4.x",
-    "moment": "2.5.x",
-    "mkdirp": "0.3.x"
+    "express": "^3.0.0",
+    "mkdirp": "^0.5.1",
+    "moment": "^2.10.6"
   },
   "homepage": "https://github.com/okize/json-receptacle",
   "author": "Morgan Wigmanich <okize123@gmail.com> (https://github.com/okize)",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.7.1"
+  }
 }
